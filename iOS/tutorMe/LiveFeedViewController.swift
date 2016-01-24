@@ -9,9 +9,11 @@
 import UIKit
 import Parse
 
-class LiveFeedViewController: UIViewController {
+class LiveFeedViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     
+    @IBOutlet weak var helpTableView: UITableView!
+    var helpArray = NSMutableArray()
     
     @IBOutlet var usernameLabel: UILabel!
     @IBOutlet var emailLabel: UILabel!
@@ -23,6 +25,8 @@ class LiveFeedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        self.helpTableView.dataSource = self
+        self.helpTableView.delegate = self
         let userParameters = ["fields": "name, id, email, first_name, last_name, birthday, location{name}"]
         let graphRequest : FBSDKGraphRequest = FBSDKGraphRequest(graphPath: "me", parameters: userParameters)
         graphRequest.startWithCompletionHandler({ (connection, result, error) -> Void in
@@ -92,7 +96,14 @@ class LiveFeedViewController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        //self.navigationController?.navigationBarHidden = false
+        super.viewWillAppear(animated)
+        //reloads data before even appearing in the view
+        retrieveDataFromParse()
+        self.helpTableView.reloadData()
+        
+        
+        // actIndicator.hidden = true // for now
+        
     }
     
     @IBAction func logoutTapped(sender: AnyObject) {
@@ -113,6 +124,68 @@ class LiveFeedViewController: UIViewController {
     @IBAction func requestHelpTapped(sender: AnyObject) {
         
     }
+    
+    //DataSourceSegment////////////////
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return helpArray.count
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        //get offer/request
+        let tempObject:PFObject = self.helpArray.objectAtIndex(indexPath.row) as! PFObject
+        let postCreator = tempObject["first_name"] as! String  // get first name of user from post
+        let subject = tempObject["subject"] as! String
+        let userQuery:PFQuery = PFUser.query()! // access user class
+        userQuery.whereKey("username", equalTo: postCreator) // find user == postCreator
+        
+        let hCell:HelpViewCell = tableView.dequeueReusableCellWithIdentifier("HelpViewCell") as! HelpViewCell
+        
+        hCell.helpTextLabel.text = "Needs help in \(subject)."
+        hCell.helpFirstNameLabel.text = postCreator
+        
+        return hCell
+    }
+
+    
+    func retrieveDataFromParse()
+    {
+        //get query from parse
+        let query = PFQuery(className: "Post")
+        query.orderByDescending("createdAt")
+        query.findObjectsInBackgroundWithBlock {
+            //query parse object and put each object in objects array
+            (objects: [PFObject]?, error: NSError?) -> Void in
+            if error == nil
+            {
+                self.helpArray.removeAllObjects()
+                //populate myPostArray with each parse objects
+                if let objects = objects {
+                    for object in objects {
+                        print(object.objectId, terminator: "")
+                        self.helpArray.addObject(object)
+                    }
+                }
+                
+                self.helpTableView.reloadData()
+                               // The find succeeded.
+                print("Successfully retrieved \(objects!.count) posts.", terminator: "")
+            }
+            else
+            {
+                // Log details of the failure
+                print("Error: \(error!) \(error!.userInfo)", terminator: "")
+            }
+        }
+        
+        
+    }
+
     /*
     // MARK: - Navigation
 

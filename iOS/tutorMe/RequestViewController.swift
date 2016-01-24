@@ -18,6 +18,7 @@ class RequestViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         "Finance Management","Construction Management","American Literature","Criminal Law","Entomology","Neuropsychology",
         "Sociology","Product Design","Artificial Intelligence","Social Studies","Astronomy"
         ,"Rocket Science", "What Is The Good Life?"]
+    var selectedRow = "Accounting"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,9 +32,7 @@ class RequestViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     }
     
     
-    @IBAction func onButtonTapped(sender: AnyObject) {
-        
-    }
+    
     
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 1
@@ -49,21 +48,25 @@ class RequestViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
     {
-        if(row == 0)
-        {
-
-        }
-        else if(row == 1)
-        {
-
-        }
-        else if(row == 2)
-        {
-
-        }
-        else
-        {
-
+        selectedRow = pickerDataSource[row]
+    }
+    
+    @IBAction func onButtonTapped(sender: AnyObject) {
+        let postToCreate = PFObject(className: "Post")
+        
+        postToCreate["first_name"] = PFUser.currentUser()!.objectForKey("first_name")
+        
+        postToCreate["subject"] = selectedRow
+        
+        postToCreate.saveInBackgroundWithBlock {
+            (success: Bool, error: NSError?) -> Void in
+            if (success) {
+                // The object has been saved. Now return to timeline
+                let liveFeed = self.storyboard?.instantiateViewControllerWithIdentifier("LiveFeedNavController") as! UINavigationController
+                self.presentViewController(liveFeed, animated: true, completion: nil)
+            } else {
+                // There was a problem, check error.description
+            }
         }
     }
 
