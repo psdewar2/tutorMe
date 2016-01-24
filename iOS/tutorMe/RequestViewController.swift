@@ -11,8 +11,13 @@ import UIKit
 class RequestViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
 
     @IBOutlet weak var courseHelpView: UIPickerView!
+    @IBOutlet weak var postRequestButton: UIButton!
     
-    var pickerDataSource = ["Algebra I", "Algebra II", "Geometry", "Calculus I", "Calculus II", "General Chemistry", "Organic Chemistry", "Physics I", "Physics II", "Digital Logic", "Rocket Science"];
+    var pickerDataSource = ["Accounting","Algebra I", "Algebra II","World History","Biology","Calculus I", "Calculus II","Geometry", "General Chemistry",
+        "Organic Chemistry", "Physics I", "Physics II", "Digital Logic","Real Estate",
+        "Finance Management","Construction Management","American Literature","Criminal Law","Entomology","Neuropsychology",
+        "Sociology","Product Design","Artificial Intelligence","Social Studies","Astronomy"
+        ,"Rocket Science", "What Is The Good Life?"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +28,11 @@ class RequestViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    
+    @IBAction func onButtonTapped(sender: AnyObject) {
+        
     }
     
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
@@ -41,19 +51,19 @@ class RequestViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     {
         if(row == 0)
         {
-            self.view.backgroundColor = UIColor.whiteColor();
+
         }
         else if(row == 1)
         {
-            self.view.backgroundColor = UIColor.redColor();
+
         }
         else if(row == 2)
         {
-            self.view.backgroundColor =  UIColor.greenColor();
+
         }
         else
         {
-            self.view.backgroundColor = UIColor.blueColor();
+
         }
     }
 
