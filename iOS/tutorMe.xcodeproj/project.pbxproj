@@ -13,6 +13,8 @@
 		41680D101C5447C70079B81F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41680D0F1C5447C70079B81F /* Assets.xcassets */; };
 		41680D131C5447C70079B81F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41680D111C5447C70079B81F /* LaunchScreen.storyboard */; };
 		41AEBD841C548BFF00AA08C7 /* LiveFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41AEBD831C548BFF00AA08C7 /* LiveFeedViewController.swift */; };
+		41CBEBDB1C54F1A700E3C6B4 /* HelpViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CBEBDA1C54F1A700E3C6B4 /* HelpViewCell.swift */; };
+		41CBEBDD1C54F5C800E3C6B4 /* RequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CBEBDC1C54F5C800E3C6B4 /* RequestViewController.swift */; };
 		72D03219DD4355D4781B35D1 /* Pods_tutorMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 387C2FAF95FD611F1A9CDDF6 /* Pods_tutorMe.framework */; };
 /* End PBXBuildFile section */
 
@@ -28,6 +30,8 @@
 		41680D141C5447C70079B81F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		41AEBD801C54585500AA08C7 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		41AEBD831C548BFF00AA08C7 /* LiveFeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveFeedViewController.swift; sourceTree = "<group>"; };
+		41CBEBDA1C54F1A700E3C6B4 /* HelpViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpViewCell.swift; sourceTree = "<group>"; };
+		41CBEBDC1C54F5C800E3C6B4 /* RequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestViewController.swift; sourceTree = "<group>"; };
 		E36CE1CE660F41E2AA65FDE4 /* Pods-tutorMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tutorMe.release.xcconfig"; path = "Pods/Target Support Files/Pods-tutorMe/Pods-tutorMe.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -72,16 +76,26 @@
 		41680D071C5447C70079B81F /* tutorMe */ = {
 			isa = PBXGroup;
 			children = (
+				41CBEBDE1C54F5CC00E3C6B4 /* View Controllers */,
 				41AEBD801C54585500AA08C7 /* Bridging-Header.h */,
 				41680D081C5447C70079B81F /* AppDelegate.swift */,
-				41680D0A1C5447C70079B81F /* ViewController.swift */,
 				41680D0C1C5447C70079B81F /* Main.storyboard */,
 				41680D0F1C5447C70079B81F /* Assets.xcassets */,
 				41680D111C5447C70079B81F /* LaunchScreen.storyboard */,
 				41680D141C5447C70079B81F /* Info.plist */,
-				41AEBD831C548BFF00AA08C7 /* LiveFeedViewController.swift */,
+				41CBEBDA1C54F1A700E3C6B4 /* HelpViewCell.swift */,
 			);
 			path = tutorMe;
+			sourceTree = "<group>";
+		};
+		41CBEBDE1C54F5CC00E3C6B4 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				41680D0A1C5447C70079B81F /* ViewController.swift */,
+				41AEBD831C548BFF00AA08C7 /* LiveFeedViewController.swift */,
+				41CBEBDC1C54F5C800E3C6B4 /* RequestViewController.swift */,
+			);
+			name = "View Controllers";
 			sourceTree = "<group>";
 		};
 		7BF7740A3DDE556DF77EC07B /* Pods */ = {
@@ -216,6 +230,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				41680D0B1C5447C70079B81F /* ViewController.swift in Sources */,
+				41CBEBDB1C54F1A700E3C6B4 /* HelpViewCell.swift in Sources */,
+				41CBEBDD1C54F5C800E3C6B4 /* RequestViewController.swift in Sources */,
 				41680D091C5447C70079B81F /* AppDelegate.swift in Sources */,
 				41AEBD841C548BFF00AA08C7 /* LiveFeedViewController.swift in Sources */,
 			);

@@ -13,6 +13,8 @@ import FBSDKLoginKit
 
 class ViewController: UIViewController, FBSDKLoginButtonDelegate {
     
+    @IBOutlet var fbLoginButton: FBSDKLoginButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -20,14 +22,18 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
         if (FBSDKAccessToken.currentAccessToken() != nil)
         {
             // User is already logged in, do work such as go to next view controller.
+            print("USER IS LOGGED IN")
+            print(FBSDKAccessToken.currentAccessToken().userID)
+            let liveFeedVC = self.storyboard?.instantiateViewControllerWithIdentifier("LiveFeedViewController") as! LiveFeedViewController
+            
+            let liveFeedPageNav = UINavigationController(rootViewController: liveFeedVC)
+            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            appDelegate.window?.rootViewController = liveFeedPageNav
         }
         else
         {
-            let loginView : FBSDKLoginButton = FBSDKLoginButton()
-            self.view.addSubview(loginView)
-            loginView.center = self.view.center
-            loginView.readPermissions = ["public_profile", "email", "user_friends"]
-            loginView.delegate = self
+            fbLoginButton.delegate = self
+            fbLoginButton.readPermissions = ["public_profile", "email", "user_friends", "user_birthday", "user_location", "user_education_history", "user_events"]
         }
         
     }
@@ -45,6 +51,8 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
         if ((error) != nil)
         {
             // Process error
+            print(error.localizedDescription)
+            return
         }
         else if result.isCancelled {
             // Handle cancellations
@@ -52,38 +60,26 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
         else {
             // If you ask for multiple permissions at once, you
             // should check if specific permissions missing
+            print("Token is \(FBSDKAccessToken.currentAccessToken().tokenString)")
+            print("User ID is \(FBSDKAccessToken.currentAccessToken().userID)")
+            
+            let liveFeedVC = self.storyboard?.instantiateViewControllerWithIdentifier("LiveFeedViewController") as! LiveFeedViewController
+            
+            let liveFeedPageNav = UINavigationController(rootViewController: liveFeedVC)
+            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            appDelegate.window?.rootViewController = liveFeedPageNav
             if result.grantedPermissions.contains("email")
             {
                 // Do work
             }
         }
+    
+        
     }
     
     func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
         print("User Logged Out")
     }
-    
-    func returnUserData()
-    {
-        let graphRequest : FBSDKGraphRequest = FBSDKGraphRequest(graphPath: "me", parameters: nil)
-        graphRequest.startWithCompletionHandler({ (connection, result, error) -> Void in
-            
-            if ((error) != nil)
-            {
-                // Process error
-                print("Error: \(error)")
-            }
-            else
-            {
-                print("fetched user: \(result)")
-                let userName : NSString = result.valueForKey("name") as! NSString
-                print("User Name is: \(userName)")
-                let userEmail : NSString = result.valueForKey("email") as! NSString
-                print("User Email is: \(userEmail)")
-            }
-        })
-    }
-    
 
 }
 

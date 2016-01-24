@@ -21,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Parse.setApplicationId("5C7viCrEvlD1RUgP898ilCbBg1mDjeYpG58vGuLm", clientKey:"HeoaNxhw1GKNUMulS80FxrKu3WilIpm96x1zK6NM")
         PFFacebookUtils.initializeFacebookWithApplicationLaunchOptions(launchOptions)
         
+        FBSDKLoginButton.classForCoder()
         return true
     }
     
